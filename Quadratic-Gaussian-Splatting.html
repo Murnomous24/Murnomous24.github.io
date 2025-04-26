@@ -1,0 +1,1102 @@
+
+<!DOCTYPE html><html lang="en" data-theme="light">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.29.1" theme-name="Stellar" theme-version="1.29.1">
+  
+  <meta name="generator" content="Hexo 7.3.0">
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
+  <meta name="theme-color" content="#f9fafb">
+  
+  <title>Quadratic Gaussian Splatting - Murnomous24</title>
+
+  
+    <meta name="description" content="1. 信息 文章：Quadratic Gaussian Splatting for Efficient and Detailed Surface Reconstruction 代码：QuadraticGS&#x2F;QGS: The official implementation for the paper “Quadratic Gaussian Splatting for Efficient and De">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Quadratic Gaussian Splatting">
+<meta property="og:url" content="http://murnomous24.github.io/Quadratic-Gaussian-Splatting">
+<meta property="og:site_name" content="Murnomous24">
+<meta property="og:description" content="1. 信息 文章：Quadratic Gaussian Splatting for Efficient and Detailed Surface Reconstruction 代码：QuadraticGS&#x2F;QGS: The official implementation for the paper “Quadratic Gaussian Splatting for Efficient and De">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://murnomous24.github.io/images/QuadraticGaussianSplatting/e5d8e2f915f38c56801016f062412d71_MD5.jpeg">
+<meta property="og:image" content="http://murnomous24.github.io/images/QuadraticGaussianSplatting/471f1e7a4dc17ec9cf1f0df9998591bb_MD5.jpeg">
+<meta property="og:image" content="http://murnomous24.github.io/images/QuadraticGaussianSplatting/7d7fb63ae10ab391bd09436f9c0b3453_MD5.jpeg">
+<meta property="og:image" content="http://murnomous24.github.io/images/QuadraticGaussianSplatting/c8778b89da30873385f3cd97178bf3ce_MD5.jpeg">
+<meta property="og:image" content="http://murnomous24.github.io/images/QuadraticGaussianSplatting/27a4bb5c5d19b44ebacc531751810b9d_MD5.jpeg">
+<meta property="article:published_time" content="2025-04-26T12:16:53.000Z">
+<meta property="article:modified_time" content="2025-04-26T12:28:24.183Z">
+<meta property="article:author" content="Murnomous24">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://murnomous24.github.io/images/QuadraticGaussianSplatting/e5d8e2f915f38c56801016f062412d71_MD5.jpeg">
+  
+  
+  
+  
+
+  <!-- feed -->
+  
+
+  <link rel="stylesheet" href="/css/main.css?v=1.29.1">
+
+
+  
+    <link rel="shortcut icon" href="/images/config/favicon-96x96.png">
+  
+
+  
+
+  
+</head>
+<body>
+
+<div class="l_body s:aa content tech" id="start" layout="post" ><aside class="l_left"><div class="leftbar-container">
+
+
+<header class="header"><div class="logo-wrap"><a class="avatar" href="/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="/images/config/avatar.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">Murnomous24</div><div class="sub cap">Murph</div></a></div></header>
+
+<div class="nav-area">
+<div class="search-wrapper" id="search-wrapper"><form class="search-form"><a class="search-button" onclick="document.getElementById(&quot;search-input&quot;).focus();"><svg t="1705074644177" viewBox="0 0 1025 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1560" width="200" height="200"><path d="M1008.839137 935.96571L792.364903 719.491476a56.783488 56.783488 0 0 0-80.152866 0 358.53545 358.53545 0 1 1 100.857314-335.166073 362.840335 362.840335 0 0 1-3.689902 170.145468 51.248635 51.248635 0 1 0 99.217358 26.444296 462.057693 462.057693 0 1 0-158.255785 242.303546l185.930047 185.725053a51.248635 51.248635 0 0 0 72.568068 0 51.248635 51.248635 0 0 0 0-72.978056z" p-id="1561"></path><path d="M616.479587 615.969233a50.428657 50.428657 0 0 0-61.498362-5.534852 174.655348 174.655348 0 0 1-177.525271 3.484907 49.403684 49.403684 0 0 0-58.833433 6.76482l-3.074918 2.869923a49.403684 49.403684 0 0 0 8.609771 78.10292 277.767601 277.767601 0 0 0 286.992355-5.739847 49.403684 49.403684 0 0 0 8.404776-76.667958z" p-id="1562"></path></svg></a><input type="text" class="search-input" id="search-input" placeholder="Search"></form><div id="search-result"></div><div class="search-no-result">No Results!</div></div>
+
+
+<nav class="menu dis-select"></nav>
+</div>
+<div class="widgets">
+
+
+<widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">Recent Update</span></div><div class="widget-body fs14"><a class="item title" href="/Quadratic-Gaussian-Splatting"><span class="title">Quadratic Gaussian Splatting</span></a><a class="item title" href="/test1"><span class="title">样式测试</span></a><a class="item title" href="/hello-world"><span class="title">Hello World</span></a></div></widget>
+</div>
+
+</div></aside><div class="l_main" id="main">
+
+
+
+
+
+<div class="article banner top"><img class="bg lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/images/QuadraticGaussianSplatting/cover.png">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">Home</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">Blog</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">Posted on: <time datetime="2025-04-26T12:16:53.000Z">2025-04-26</time></span><span class="sep updated"></span><span class="text updated">Updated on: <time datetime="2025-04-26T12:28:24.183Z">2025-04-26</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>Quadratic Gaussian Splatting</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><h2 id="1-信息"><a href="#1-信息" class="headerlink" title="1. 信息"></a>1. 信息</h2><ul>
+<li>文章：Quadratic Gaussian Splatting for Efficient and Detailed Surface Reconstruction</li>
+<li>代码：<a target="_blank" rel="noopener" href="https://github.com/QuadraticGS/QGS">QuadraticGS/QGS: The official implementation for the paper “Quadratic Gaussian Splatting for Efficient and Detailed Surface Reconstruction.”</a></li>
+</ul>
+<h2 id="2-一些知识"><a href="#2-一些知识" class="headerlink" title="2. 一些知识"></a>2. 一些知识</h2><h3 id="1-二次型与标准对角化、几何意义"><a href="#1-二次型与标准对角化、几何意义" class="headerlink" title="1. 二次型与标准对角化、几何意义"></a>1. 二次型与标准对角化、几何意义</h3><p>首先，假设有 $n$ 个变量 $x_i$ 构成一个多项式，其中每一项最高次幂为 2，可以表示如下</p>
+<script type="math/tex; mode=display">
+f(x_1,x_2,...,x_n)=a_{1,1}x_1^2+2a_{1,2}x_1x_2+...+a_{n,n}x_n^2</script><p>这是二次型的标准形式，同样的，如果二次型多项式中 <strong>只有某变量的平方项</strong>，则称为二次型的标准型，即：</p>
+<script type="math/tex; mode=display">
+f(x_1,x_2,...,x_n)=a_{1,1}x_1^2+a_{2,2}x_2^2+...+a_{n,n}x_n^2</script><p>以矩阵形式表达，可以写作：</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+f(x_1,x_2,...,x_n)
+&=
+\left [
+\begin{matrix}
+x_1 &x_2 &... &x_n
+\end{matrix}
+\right ]
+\left [
+\begin{matrix}
+a_{1,1} &a_{1,2} &... &a_{1,n}\\
+a_{2,1} &a_{2,2} &... &a_{2,n}\\
+...\\
+a_{n,1} &a_{n,2} &... &a_{n,n}
+\end{matrix}
+\right ]
+\left [
+\begin{matrix}
+x_1\\
+x_2\\
+...\\
+x_n
+\end{matrix}
+\right ]\\
+&=\mathbf{X}^T\mathbf{A}\mathbf{X}
+\end{align*}</script><p>由于二次型实际上是二次多项式，而由于 $(a+b)^2$ 的性质，二次型矩阵 $\mathbf{A}$ 有性质 $a<em>{i, j}=a</em>{j, i}$ ，所以 $\mathbf{A}$ 是对称矩阵。</p>
+<p>由于在实际应用中，大多关注项在实数范围内的矩阵，所以以下的理论均在实数范围内的二次型（Real quadratic forms）中。<br>对于每一个二次型矩阵，由于其本身是对称矩阵，所以它们一定能够对角化，即化简为：</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+&\mathbf{A}=\mathbf{Q}\mathbf{\Lambda}\mathbf{Q}^{-1}\\
+&\mathbf{Q}是正交矩阵,即列向量之间正交,\mathbf{Q}^{-1}=\mathbf{Q}^{T}\\
+&\mathbf{\Lambda}是对角矩阵
+\end{align*}</script><p>并且在 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Sylvester%27s_law_of_inertia">Sylvester’s law of inertia - Wikipedia</a> 中有以下定理，如果基的变换（即 $\mathbf{A}\rightarrow \mathbf{\Lambda}$）是由可逆矩阵带来的 ($\mathbf{Q}$ 是可逆的)，则 $\mathbf{\Lambda}$ 中对角线上的值只能是 0,-1,1。且元组 $(n<em>0,n</em>{+},n_{-})$ 仅由 $A$ 决定，而不受变换矩阵的控制，其中 $n_0$ 代表对角线上为 0 的个数，其余同理。<br>根据对角线上值的特性，可将矩阵分为以下四类：</p>
+<ul>
+<li>$\lambda_i&gt;0$ 对每个特征值（对角线上的值）均成立，该矩阵为正定矩阵</li>
+<li>$\lambda_i&lt;0$ 对每个特征值均成立，该矩阵为负定矩阵</li>
+<li>$\lambda_i$ 均不为 0，为非退化矩阵</li>
+<li>$\lambda_i$ 存在大于 0 或小于 0，为各向同性矩阵</li>
+</ul>
+<p>在标准对角化之后，对角矩阵 $\mathbf{\Lambda}$ 的特征值可以反映二次型所表示的几何形状</p>
+<ul>
+<li>所以特征值非 0<ul>
+<li>如果特征值均为正，为椭球面</li>
+<li>如果特征值为负，为虚椭球面（半径是虚数）</li>
+<li>如果一些特征值是正数，一些是负数，则是双曲面</li>
+</ul>
+</li>
+<li>存在一个或多个特征值为 0<ul>
+<li>为抛物面<h2 id="3-简要介绍"><a href="#3-简要介绍" class="headerlink" title="3. 简要介绍"></a>3. 简要介绍</h2>quadratic Gaussian splatting，即 QGS，是一种利用二次曲面作为重建单位的高斯重建方法，其想法受 2DGS 指导，2DGS 中的圆盘重建为多视角一致性提供了良好的基础，但 2DGS 中将圆盘作为重建单位也导致了重建结果过于平滑，损失了物体本身的细节，QGS 在 2DGS 的基础之上，将圆盘变形为可以“凸起，凹陷”的圆盘，即抛物面，达到更好的表面重建结果。</li>
+</ul>
+</li>
+</ul>
+<h2 id="4-技术细节"><a href="#4-技术细节" class="headerlink" title="4. 技术细节"></a>4. 技术细节</h2><h3 id="1-高斯重建"><a href="#1-高斯重建" class="headerlink" title="1. 高斯重建"></a>1. 高斯重建</h3><p>3dgs 的公式如下</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+&G(x)=exp(-\frac{1}{2}(\mathbf{x}-\mathbf{p}_k)^T\sum\nolimits^{-1}(\mathbf{x}-\mathbf{p}_k))\\
+&\sum\nolimits=\mathbf{R}\mathbf{S}\mathbf{R}^T\mathbf{S}^T\\
+&\sum\nolimits^{'}=\mathbf{J}\mathbf{W}\sum\nolimits\mathbf{J}^T\mathbf{W}^T\\
+&C(\mathbf{p})=\sum\limits_{i=0}^{N-1}G_{i}^{2D}(\mathbf{p})\alpha_ic_i\prod_{j=0}^{i-1}(1-G_{j}^{2D}(\mathbf{p}))
+\end{align*}</script><p>以上便是常规 3dgs 的高斯函数表示，和从世界坐标系-屏幕坐标系-图形坐标系的的转换，以及最后使用 alpha-blending 对渲染图像上某个像素的颜色渲染公式。<br>对于 3dgs 和其变体 2dgs，它们使用的体素单位都是高斯，QGS 也是，但是三者形态各有不同，即：</p>
+<ul>
+<li>3dgs：椭球</li>
+<li>2dgs：平面圆盘</li>
+<li>QGS：二次曲面（抛物面）</li>
+</ul>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="images/QuadraticGaussianSplatting/e5d8e2f915f38c56801016f062412d71_MD5.jpeg" alt="高斯形态类型" data-fancybox="true"/></div><div class="image-meta"><span class="image-caption center">高斯形态类型</span></div></div>
+<!-- ![[Pic/e5d8e2f915f38c56801016f062412d71_MD5.jpeg]] -->
+<p>而在 QGS 的作者论述中，对于多孔且棱角分明的场景重建，3gds 会造成拟合不到平面的问题，而 2dgs 在表面曲率较大的时刻难以拟合平面，比如孔洞这种位置，会造成直接过于平滑的重建效果，qgs 则能避免以上两种问题，如图：</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="images/QuadraticGaussianSplatting/471f1e7a4dc17ec9cf1f0df9998591bb_MD5.jpeg" alt="前述方法对比" data-fancybox="true"/></div><div class="image-meta"><span class="image-caption center">前述方法对比</span></div></div>
+<!-- ![[Pic/471f1e7a4dc17ec9cf1f0df9998591bb_MD5.jpeg]] -->
+<h3 id="2-二次曲面"><a href="#2-二次曲面" class="headerlink" title="2. 二次曲面"></a>2. 二次曲面</h3><p>上节中提到 QGS 使用的是二次曲面，而在齐次坐标系下，二次曲面常常是隐式定义的，即</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+&\mathbf{x}=[x,y,z,1]\in R^4\\
+&f(x,y,z)=\mathbf{x}^T\mathbf{Q}\mathbf{x}=0
+\end{align*}</script><p>$\mathbf{Q}\in R^4$ ，是一个四阶矩阵，即二次型矩阵，但由于其本身矩阵的基性质不够好，不能直接反应二次曲面的特征向量和缩放系数，即 3dgs 那样的 $\sum\nolimits=\mathbf{R}\mathbf{S}\mathbf{R}^T\mathbf{S}^T$ 性质，所以通过求出合同矩阵 $D$ ，即替换矩阵的基，能够将矩阵等价转换为性质更好的矩阵，即</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+&\mathbf{Q}=\mathbf{T}^{-T}\mathbf{D}\mathbf{T}^{-1}
+\end{align*}</script><p>具体过程为</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+f&=\mathbf{x}^T\mathbf{Q}\mathbf{x}\\
+&=\mathbf{y}^T(\mathbf{T}^T\mathbf{Q}\mathbf{T})\mathbf{y}\\
+&=\mathbf{y}^T\mathbf{\Lambda}\mathbf{y}\\
+\end{align*}</script><p>即对二次型矩阵的标准型计算过程，其中对角化中产生的 $\mathbf{T}$ 的前三行和前三列的子矩阵，可以被分解为 $\mathbf{RS}$ ，即二次曲面的方向向量矩阵和系数向量的乘积，且 $\mathbf{T}$ 的第四列代表了二次曲面的位置，对角化后的标准型矩阵，仅在对角线上有元素，且取值只存在 -1,0,1 三种情况，而这三种取值则反应了二次曲面的形状，是椭球体，还是平面等。<strong>具体参考 2.1 节</strong> </p>
+<script type="math/tex; mode=display">
+\begin{align*}
+&\mathbf{T}=
+\left [
+\begin{matrix}
+\mathbf{u} &\mathbf{v} &\mathbf{w} &\mathbf{c} \\
+0 &0 &0 &1
+\end{matrix}
+\right ]\\
+&[\mathbf{u}\ \mathbf{v}\ \mathbf{w}]=\mathbf{RS}\\
+&\mathbf{R}=[\mathbf{r}_1\ \mathbf{r}_2\ \mathbf{r}_3]\\
+&\mathbf{S}=diag(s_1,s_2,s_3)
+\end{align*}</script><p>得到良好的形式之后，就需要定义二次曲面上任意一点的高斯函数值了，但在这之前，先需要定义高斯函数的均值和方差，才能描述其上一点的高斯函数值。</p>
+<h3 id="3-测地线距离"><a href="#3-测地线距离" class="headerlink" title="3. 测地线距离"></a>3. 测地线距离</h3><p>作者认为，二次曲面上点之间的值，应被描述为沿曲面行进的距离，这样可以达到将高斯的能量集中于表面，同时，数学上有此种定义。</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="images/QuadraticGaussianSplatting/7d7fb63ae10ab391bd09436f9c0b3453_MD5.jpeg" alt="测地线定义" data-fancybox="true"/></div><div class="image-meta"><span class="image-caption center">测地线定义</span></div></div>
+<!-- ![[Pic/7d7fb63ae10ab391bd09436f9c0b3453_MD5.jpeg]] -->
+<p>但作者提及，某些二次曲面的性质不够好，会导致测地距离没有解析解，只能通过数值方法进行计算，所以他只选择二次曲面中的抛物面作为体素单元。<br>具体来说，将上文中的二次曲面函数进行进一步转换，得到</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+f(x,y,z)
+&=\mathbf{x}^T
+\left [
+\begin{matrix}
+\mathbf{R} &\mathbf{c}\\
+0 &1
+\end{matrix}
+\right ]
+\overline{D}
+\left [
+\begin{matrix}
+\mathbf{R} &\mathbf{c}\\
+0 &1
+\end{matrix}
+\right ]
+\mathbf{x}\\
+&=\mathbf{\hat{x}}^T
+\left [
+\begin{matrix}
+\frac{d_{11}}{s_1^2} &0 &0 &0\\
+0 &\frac{d_{22}}{s_2^2} &0 &0\\
+0 &0 &0 &-\frac{d_{33}}{2s_3}\\
+0 &0 &\frac{d_{33}}{2s_3} &0\\
+\end{matrix}
+\right ]
+\mathbf{\hat{x}}\\
+&=\frac{d_{11}}{s_1^2}\hat{x}^2+\frac{d_{22}}{s_2^2}\hat{y}^2-\frac{d_{33}}{s_3^2}\hat{z}\\
+&=0
+\end{align*}</script><p>由于 $d_{ii}$ 的取值代表了抛物面的形状，如椭球体、平面，但它的取值是离散的，导致函数本身不可微，所以需要进行一些变换，作者在此用缩放比例的函数进行替代，使二次型函数变的可微</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+&f(\hat{x},\hat{y},\hat{z})=\frac{sign(s_1)}{s_1^2}\hat{x}^2+\frac{sign(s_2)}{s_2^2}\hat{y}^2-\frac{1}{s_3}\hat{z}=0\\
+&sign(s,t)=tanh(t)exp(x)
+\end{align*}</script><p>同时将其转换为显式形式，便于表达，即</p>
+<script type="math/tex; mode=display">
+\hat{z}(\hat{x},\hat{y})=s_3(\frac{sign(s_1)}{s_1^2}\hat{x}^2+\frac{sign(s_2)}{s_2^2}\hat{y}^2)</script><p>再转换为柱坐标系下的表示，即由 $\theta, \rho, z$ 组成的坐标系，即</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+\hat{z}(\theta,\rho)&=s_3(\frac{sign(s_1)\cos\theta^2}{s_1^2}+\frac{sign(s_2)\sin\theta^2}{s_2^2})\rho^2\\
+&=a(\theta)\rho^2\\
+&\hat{x}=\rho\cos\theta\\
+&\hat{y}=\rho\sin\theta
+\end{align*}</script><p>转换为柱坐标系的原因，主要是利于测地距离的计算，即高斯函数中均值的计算，这是由于，在柱坐标系下，取一个平面 $\theta=\theta_0, \rho\in (0,\rho_0)$ ，它与抛物面相交的曲线的长度，正好是抛物面原点到点 $\hat{\mathbf{p}}=(\rho_0, \theta_0, \hat{z}(\theta_0, \rho_0))$ 的测地线距离，并且形式非常好。<br>曲线 $\mathbf{r}(t)=[x(t),y(t),z(t)]^T$ 的弧长计算公式为</p>
+<script type="math/tex; mode=display">
+L=\int_a^b||\mathbf{r}'(t)||dt</script><p>而在柱坐标系中，变量即为 $\rho$ ，所以曲线的弧长计算公式为</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+l(a,\rho_0)
+&=\int_{0}^{\rho_0}\sqrt{\sin\theta^2+\cos\theta^2+(2at)^2}dt\\
+&=\int_0^{\rho_0}\sqrt{1+(2at)^2}dt\\
+&=\frac{\ln(\sqrt{u^2+1}+u)+u\sqrt{u^2+1}}{4a}\\
+&where\ u=2a\rho_0\\
+&\frac{dx}{dt}=\cos\theta\\
+&\frac{dy}{dt}=\sin\theta\\
+&\frac{dz}{dt}=2a(\theta)t\\
+\end{align*}</script><p>所以柱坐标系的作用是，将曲线弧长（即测地线距离）的计算形式变的更简洁。</p>
+<h3 id="4-方差"><a href="#4-方差" class="headerlink" title="4. 方差"></a>4. 方差</h3><p>由于二维高斯分布，外形如椭圆，其中，椭圆的两轴即为 $(s_1, s_2)$ 两个缩放系数，而椭圆上一点的表示在极坐标系下可以表示为 $(\theta_0,\rho_0)$ ，对应的 $\theta_0$ 的标准差就是 $\rho_0$ 。</p>
+<p>所以二次曲面上每一点的高斯函数，以二次曲面原点为均值 $\mu$，所以 $x-\mu$ 为测地距离，方差为二维高斯分布中标准差的平方，即</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+&G(\hat{\mathbf{p}}(\theta_0,\rho_0))=exp(-\frac{l(a(\theta_0),\rho_0)^2}{2\sigma(\theta_0)^2})\\
+&\sigma(\theta_0)=\rho_0
+\end{align*}</script><p>得到二次曲面高斯函数表达方式后，可以对其中的一些变量进行变动，查看其与平面高斯的高斯函数之间的关联。将二次曲面的 $s_3$ 趋近于 0，这会导致测地距离计算公式中的 $a$ 趋于 0，进而导致测地距离趋近于 L2 即欧几里得距离，所以说，二次曲面高斯是更一般化的二维高斯，2DGS 同样也是 QGS 的一种特殊情况了。但 QGS 含有曲面特征，相对于 2DGS，其对表面重建的能力更强。</p>
+<h3 id="5-光线求交"><a href="#5-光线求交" class="headerlink" title="5. 光线求交"></a>5. 光线求交</h3><p>由于二次曲面的特性，导致与曲面相交的光线会产生 2 个交点，即 $\hat{\mathbf{p}}_n$ 和 $\hat{\mathbf{p}}_f$ ，即</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+&\hat{\mathbf{p}}=\hat{\mathbf{o}}+t\hat{\mathbf{d}}\\
+&\hat{\mathbf{p}},\hat{\mathbf{t}},\hat{\mathbf{o}}\in R^3
+\end{align*}</script><p>设相机中心为 $\hat{\mathbf{o}}=[\hat{o}^1,\hat{o}^2,\hat{o}^3]^T$，和光线方向 $\hat{\mathbf{r}}=[\hat{r}^1,\hat{r}^2,\hat{r}^3]^T$，所以光线上任意一点可以表示为</p>
+<script type="math/tex; mode=display">
+\mathbf{x}=
+\left [
+\begin{matrix}
+\hat{o}^1+t\hat{r}^1 \\
+\hat{o}^2+t\hat{r}^2 \\
+\hat{o}^3+t\hat{r}^3 \\
+\end{matrix}
+\right ]</script><p>带入二次曲线的隐式表达，即</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+&f(\hat{x},\hat{y},\hat{z})=\frac{sign(s_1)}{s_1^2}\hat{x}^2+\frac{sign(s_2)}{s_2^2}\hat{y}^2-\frac{1}{s_3}\hat{z}=0\\
+&sign(s,t)=tanh(t)exp(x)
+\end{align*}</script><p>由于在方程中，只有深度 $t$ 是未知数，所以结果为一个以 $t$ 为未知数的一元二次方程，即</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+&At^2+Bt+C=0\\
+&t_n=\frac{-B-sign{(A)}\sqrt{B^2-4AC}}{2A}\\
+&t_f=\frac{-B+sign{(A)}\sqrt{B^2-4AC}}{2A}
+\end{align*}</script><p>而根据高斯能量分布和远近的关系，和多视角一致性的原则，作者制定了以下的交点选择方式</p>
+<ul>
+<li>近点的测地线距离小于 $3\sigma (\theta_n)$ ，选择近点</li>
+<li>远点的测地线距离小于 $3\sigma (\theta_f)$ ，选择远点</li>
+<li>否则，光线与曲面无交点。</li>
+</ul>
+<h3 id="6-法线和曲率"><a href="#6-法线和曲率" class="headerlink" title="6. 法线和曲率"></a>6. 法线和曲率</h3><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="images/QuadraticGaussianSplatting/c8778b89da30873385f3cd97178bf3ce_MD5.jpeg" alt="法线和深度示意图" data-fancybox="true"/></div><div class="image-meta"><span class="image-caption center">法线和深度示意图</span></div></div>
+<!-- ![[Pic/c8778b89da30873385f3cd97178bf3ce_MD5.jpeg]] -->
+<p>对于以上求解的近点和远点的深度距离，在大部分情况下是可用的，但在二次曲面近似于平面，即上述解的 $A$ 过小时，会给回传带来浮点下溢等问题，所以作者在这里认为，当 $A&lt;1e-6$ 时，抛去方程中的 $At^2$ ，直接将  $t=-\frac{C}{B}$ 作为解。在几何意义上，该解代表 <strong>光线与摄像机做出一条垂线与二次曲面相交点处的切平面的交点之间的距离</strong>，即上图的 $n$ 。<br>下面是作者对该解析解 $t=-\frac{C}{B}$  的推导。<br>对于二次曲面，作者 3计算法线的方式如下所示，通过将二次曲面的前两个特征向量进行叉乘得到垂直于二次曲面的面 $\mathbf{M}$ ，做相机原点与该面的垂线，与二次曲面产生的交点，该点的法线和点的坐标被如下定义：<br>由于交点在二次曲面上，且两个坐标已知，则交点为</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+&\mathbf{p}_o=[\hat{o}_1,\hat{o}_2,s_3(\frac{\hat{o}_1^2}{s_1^2}+\frac{\hat{o}_2^2}{s_2^2})]^T
+\end{align*}</script><p>所以在将该点带入曲线方程的三个偏导，得到此处切平面的方向向量</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+&f(\hat{x},\hat{y},\hat{z})=\frac{sign(s_1)}{s_1^2}\hat{x}^2+\frac{sign(s_2)}{s_2^2}\hat{y}^2-\frac{1}{s_3}\hat{z}=0\\
+&\frac{df}{dx}=\frac{2sign(s_1)x}{s_1^2}\\
+&\frac{df}{dy}=\frac{2sign(s_1)y}{s_y^2}\\
+&\frac{df}{dz}=-\frac{1}{s_3}\\
+&\hat{\mathbf{n}}(\mathbf{p}_o)=[\frac{2sign(s_1)\hat{o}_1}{s_1^2}, \frac{2sign(s_2)\hat{o}_2}{s_2^2}, -\frac{1}{s_3}]^T\\
+\end{align*}</script><p>点的法线不仅与二次曲面本身有关，也与摄像机的所处位置有关。</p>
+<p>对于这个已知的点 $\mathbf{P}_o$ ，从摄像机到该点在法线 $\hat{\mathbf{n}}(\mathbf{p}_o)$ 的投影为 $m$ ，即</p>
+<script type="math/tex; mode=display">
+m=
+\frac{\hat{\mathbf{n}}(\mathbf{p}_o)(\mathbf{p}_o-\hat{\mathbf{o}})}{||\hat{\mathbf{n}}(\mathbf{p}_o)||}</script><p>而通过几何上的推导，得到直角三角形中的角 $\theta$ 的 $\cos$ 值，即</p>
+<script type="math/tex; mode=display">
+cos\theta=
+\frac{\hat{\mathbf{r}}\cdot\hat{\mathbf{n}}(\mathbf{p}_o)}{||\hat{\mathbf{r}}\cdot||\hat{\mathbf{n}}(\mathbf{p}_o)||}</script><p>所以通过除以 $\cos\theta$ 可以得到交点的深度，即</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+n&=\frac{m}{\cos\theta}=\frac{\hat{\mathbf{n}}(\mathbf{p}_o)\cdot(\mathbf{p}_o-\hat{\mathbf{o}})}{\hat{\mathbf{r}}\cdot \hat{\mathbf{n}}(\mathbf{p}_o)}\\
+&=-\frac{C}{B}(\mathbf{A<1e-6}时成立)
+\end{align*}</script><p>对于二次曲面本身具有二阶几何的性质，所以它也能够提供额外的性质，比如曲率，曲率的定义如下所示：</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+&\lambda_1=sign(s_1)s_3/s_1^2\\
+&\lambda_2=sign(s_2)s_3/s_2^2\\
+&\hat{K}_0(\hat{\mathbf{P}_0})=
+\frac{4\lambda_1\lambda_2}{(1+4\lambda_1^2\hat{x}_0^2+4\lambda_2^2\hat{y}_0^2)}
+\end{align*}</script><p>对于渲染到图像的法向图和曲率图，作者使用了 alpha-blending，先对二次曲面体素单元进行排序，再进行渲染，即</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+N(u,v)=\sum\limits_{i=0}^{N-1}G_i\alpha_i\mathbf{n}_i\prod_{j=0}^{i}(1-G_j\alpha_j)\\
+K(u,v)=\sum\limits_{i=0}^{N-1}G_i\alpha_iK_i\prod_{j=0}^{i}(1-G_j\alpha_j)
+\end{align*}</script><h3 id="7-排序算法"><a href="#7-排序算法" class="headerlink" title="7. 排序算法"></a>7. 排序算法</h3><p>对于 2DGS 等工作的方法，均是利用高斯中心深度，或说不透明度积累到一定阈值时的深度作为真实深度使用，但这会造成伪影等情况，诸如：</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="images/QuadraticGaussianSplatting/27a4bb5c5d19b44ebacc531751810b9d_MD5.jpeg" alt="StopThePop排序算法" data-fancybox="true"/></div><div class="image-meta"><span class="image-caption center">StopThePop排序算法</span></div></div>
+<!-- ![[Pic/27a4bb5c5d19b44ebacc531751810b9d_MD5.jpeg]] -->
+<p>作者在本方法提出了两个排序过程，先后进行</p>
+<ul>
+<li>Tile sort：在 3DGS 和 QGS 中，tile 的范围为 16*16，所以对于每个 tile 内的排序，找到一个离二次曲面中心投影到成像平面最近的光线，按这条光线求出的深度对二次曲面进行排序，tile 中 256 个像素均按这个排序。</li>
+<li>Per-Pixel resort：对于 tile 内的像素，在 3DGS 中，渲染时顺序是一致的，只是每个高斯球对 tile 内的像素的影响不同。在 QGS 中，参考了 <strong>StopThePop</strong> 中的 per-pixel local resorting，具体做法为：<ul>
+<li>在求得每个高斯的深度、法线和曲率等其他性质时，对每个像素不直接开始 alpha-blending</li>
+<li>在对每个像素进行 alpha-blending 时，在之前 tile sort 的基础上，重新用 <strong>像素中心-相机中心</strong> 的光线替代该像素所属的 tile 的 <strong>tile 中心-相机中心</strong> ，并设置一个长度为 8 的滑动窗口，进行局部重排，能够提升渲染质量。<h3 id="8-损失"><a href="#8-损失" class="headerlink" title="8. 损失"></a>8. 损失</h3>QGS 的损失参考了 2DGS 的深度损失和法线损失，其中深度损失旨在让高斯集中，并分布于表面；法线损失旨在在高斯的法线尽量与真实平面相符合。<br>2DGS 中的法线损失使用了邻近点计算法线作为参考，但 2DGS 的平面属性决定了，其对变化剧烈的几何边缘无法进行处理，会产生伪影漂浮等问题。<br>但 QGS 之前计算的曲率就可以用于改善这个问题，它使用曲率对法线进行指导，避免了变化剧烈的边缘处由于 “真实法线” 的不正确性，而导致的表面过于平滑和边缘处重建错误的问题，所以具体作用为：</li>
+</ul>
+</li>
+<li>曲率大的地方，降低法线损失的权重</li>
+<li>曲率小的地方，提升发现损失的权重</li>
+</ul>
+<p>所以总体损失为：</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+&L_d=\sum\limits_{i=0}^{N-1}\sum\limits_{j=0}^{i-1}\omega_i\omega_j(t_i-t_j)^2\\
+&L_n=\sum\limits_i\omega_i(1-\mathbf{n_i}^T\mathbf{N})\\
+&\lambda_K(K(u,v))=1-sigmoid(\ln|K(u,v)|+\epsilon)\\
+&L_{Kn}(u,v)=\lambda_K(K(u,v))L_n(u,v)\\
+&L=L_c+\lambda_dL_d+\lambda_nL_{Kn}
+\end{align*}</script><h3 id="9-forward-cu"><a href="#9-forward-cu" class="headerlink" title="9. forward. cu"></a>9. forward. cu</h3><p><strong>renderCUDA</strong> 函数</p>
+<ul>
+<li><ol>
+<li>创建像素到相机中心的光线<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// create the direction</span></span><br><span class="line">float2 ray = &#123; (pixf.x - principal_x) / focal_x, (pixf.y - principal_y) / focal_y &#125;;</span><br><span class="line">float3 ray_point = &#123; ray.x , ray.y, <span class="number">1.0</span> &#125;;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><ol>
+<li>新增的共享变量<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">__shared__ <span class="type">float</span> collected_view2gaussian[BLOCK_SIZE * <span class="number">16</span>];</span><br><span class="line">__shared__ float3 collected_scales[BLOCK_SIZE];</span><br><span class="line">__shared__ float4 collected_rscales_opacity[BLOCK_SIZE];</span><br><span class="line">__shared__ int3 collected_scales_sign[BLOCK_SIZE];</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><ol>
+<li>高斯中值不透明度（T=0.5）时的高斯球数目<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">uint32_t</span> median_contributor = <span class="number">-1</span>;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><ol>
+<li>用于计算法线和曲率的变量<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">float</span> A = <span class="number">0</span>;</span><br><span class="line"><span class="type">float</span> dist1 = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="type">float</span> dist2 = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="type">float</span> curv1 = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="type">float</span> curv2 = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="type">float</span> median_weight = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="type">float</span> curvature_sum = <span class="number">0.0f</span>;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+<li><ol>
+<li>对新增变量的初始化<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">collected_rscales_opacity[block.thread_rank()] = rscales_opacity[coll_id];</span><br><span class="line">collected_scales[block.thread_rank()] = scales[coll_id];</span><br><span class="line">collected_scales_sign[block.thread_rank()] = scales_sign[coll_id];</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> ii = <span class="number">0</span>; ii &lt; <span class="number">16</span>; ii++)</span><br><span class="line">	collected_view2gaussian[<span class="number">16</span> * block.thread_rank() + ii] = view2gaussian[coll_id * <span class="number">16</span> + ii];</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ul>
+
+<div class="article-footer fs14">
+    <section id="license">
+      <div class="header"><span>License</span></div>
+      <div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
+    
+    <section id="share">
+      <div class="header"><span>Share</span></div>
+      <div class="body">
+        <div class="link"><input class="copy-area" readonly="true" id="copy-link" value="http://murnomous24.github.io/Quadratic-Gaussian-Splatting" /></div>
+        <div class="social-wrap dis-select"></div>
+        
+      </div>
+    </section>
+    </div>
+</article>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"></div><div class="item" id="next"><div class="note">Older</div><a href="/test1">样式测试</a></div></section></div>
+
+
+
+
+
+
+<footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">Murnomous24</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.29.1">Stellar 1.29.1</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+</div></footer>
+<div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
+<div class="widgets">
+
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">On This Page</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BF%A1%E6%81%AF"><span class="toc-text">1. 信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E4%B8%80%E4%BA%9B%E7%9F%A5%E8%AF%86"><span class="toc-text">2. 一些知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%BA%8C%E6%AC%A1%E5%9E%8B%E4%B8%8E%E6%A0%87%E5%87%86%E5%AF%B9%E8%A7%92%E5%8C%96%E3%80%81%E5%87%A0%E4%BD%95%E6%84%8F%E4%B9%89"><span class="toc-text">1. 二次型与标准对角化、几何意义</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E7%AE%80%E8%A6%81%E4%BB%8B%E7%BB%8D"><span class="toc-text">3. 简要介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%8A%80%E6%9C%AF%E7%BB%86%E8%8A%82"><span class="toc-text">4. 技术细节</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E9%AB%98%E6%96%AF%E9%87%8D%E5%BB%BA"><span class="toc-text">1. 高斯重建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%BA%8C%E6%AC%A1%E6%9B%B2%E9%9D%A2"><span class="toc-text">2. 二次曲面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%B5%8B%E5%9C%B0%E7%BA%BF%E8%B7%9D%E7%A6%BB"><span class="toc-text">3. 测地线距离</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E6%96%B9%E5%B7%AE"><span class="toc-text">4. 方差</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%85%89%E7%BA%BF%E6%B1%82%E4%BA%A4"><span class="toc-text">5. 光线求交</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E6%B3%95%E7%BA%BF%E5%92%8C%E6%9B%B2%E7%8E%87"><span class="toc-text">6. 法线和曲率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95"><span class="toc-text">7. 排序算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E6%8D%9F%E5%A4%B1"><span class="toc-text">8. 损失</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-forward-cu"><span class="toc-text">9. forward. cu</span></a></li></ol></li></ol></div><div class="widget-footer">
+
+<a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12c0-4.714 0-7.071 1.464-8.536C4.93 2 7.286 2 12 2c4.714 0 7.071 0 8.535 1.464C22 4.93 22 7.286 22 12c0 4.714 0 7.071-1.465 8.535C19.072 22 16.714 22 12 22s-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12Z"/><path stroke-linecap="round" stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/></g></svg><span>Scroll to Top</span></a></div></widget>
+</div></aside><div class='float-panel blur'>
+  <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
+  </button>
+  <button type='button' style='display:none' class='mobile-only leftbar-toggle mobile' onclick='sidebar.leftbar()'>
+    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11c0-3.771 0-5.657 1.172-6.828C4.343 3 6.229 3 10 3h4c3.771 0 5.657 0 6.828 1.172C22 5.343 22 7.229 22 11v2c0 3.771 0 5.657-1.172 6.828C19.657 21 17.771 21 14 21h-4c-3.771 0-5.657 0-6.828-1.172C2 18.657 2 16.771 2 13z"/><path id="sep" stroke-linecap="round" d="M5.5 10h6m-5 4h4m4.5 7V3"/></g></svg>
+  </button>
+</div>
+</div><div class="scripts">
+<script type="text/javascript">
+  const ctx = {
+    date_suffix: {
+      just: `Just`,
+      min: `minutes ago`,
+      hour: `hours ago`,
+      day: `days ago`,
+    },
+    root : `/`,
+    tag_plugins: {
+      chat: Object.assign({"api":"https://siteinfo.listentothewind.cn/api/v1"}),
+    }
+  };
+
+  // required plugins (only load if needs)
+  if (`local_search`) {
+    ctx.search = {};
+    ctx.search.service = `local_search`;
+    if (ctx.search.service == 'local_search') {
+      let service_obj = Object.assign({}, `{"field":"all","path":"/search.json","content":true,"skip_search":null,"sort":"-date"}`);
+      ctx.search[ctx.search.service] = service_obj;
+    }
+  }
+  const def = {
+    avatar: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/3442075.svg`,
+    cover: `https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/cover/76b86c0226ffd.svg`,
+  };
+  const deps = {
+    jquery: `https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js`,
+    marked: `https://cdn.jsdelivr.net/npm/marked@13.0.1/lib/marked.umd.min.js`
+  }
+  
+
+</script>
+
+<script type="text/javascript">
+  function RunItem() {
+    this.list = []; // 存放回调函数
+    this.start = () => {
+      for (var i = 0; i < this.list.length; i++) {
+        this.list[i].run();
+      }
+    };
+    this.push = (fn, name, setRequestAnimationFrame = true) => {
+      let myfn = fn
+      if (setRequestAnimationFrame) {
+        myfn = () => {
+          utils.requestAnimationFrame(fn)
+        }
+      }
+      var f = new Item(myfn, name);
+      this.list.push(f);
+    };
+    this.remove = (name) => {
+      for (let index = 0; index < this.list.length; index++) {
+        const e = this.list[index];
+        if (e.name == name) {
+          this.list.splice(index, 1);
+        }
+      }
+    }
+    // 构造一个可以run的对象
+    function Item(fn, name) {
+      // 函数名称
+      this.name = name || fn.name;
+      // run方法
+      this.run = () => {
+        try {
+          fn()
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    }
+  }
+
+  const utils = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    css: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    js: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      if (src.startsWith('/')) {
+        src = ctx.root + src.substring(1);
+      }
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function () {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    jq: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        utils.js(deps.jquery).then(fn)
+      } else {
+        fn()
+      }
+    },
+
+    onLoading: (el) => {
+      if (el) {
+        $(el).append('<div class="loading-wrap"><svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" stroke-opacity=".3" d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="1.3s" values="60;0"/></path><path stroke-dasharray="15" stroke-dashoffset="15" d="M12 3C16.9706 3 21 7.02944 21 12"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="15;0"/><animateTransform attributeName="transform" dur="1.5s" repeatCount="indefinite" type="rotate" values="0 12 12;360 12 12"/></path></g></svg></div>');
+      }
+    },
+    onLoadSuccess: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap').remove();
+      }
+    },
+    onLoadFailure: (el) => {
+      if (el) {
+        $(el).find('.loading-wrap svg').remove();
+        $(el).find('.loading-wrap').append('<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path stroke-dasharray="60" stroke-dashoffset="60" d="M12 3L21 20H3L12 3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="60;0"/></path><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 10V14"><animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s" values="6;0"/></path></g><circle cx="12" cy="17" r="1" fill="currentColor" fill-opacity="0"><animate fill="freeze" attributeName="fill-opacity" begin="0.8s" dur="0.4s" values="0;1"/></circle></svg>');
+        $(el).find('.loading-wrap').addClass('error');
+      }
+    },
+    request: (el, url, callback, onFailure) => {
+      let retryTimes = 3;
+      utils.onLoading(el);
+      function req() {
+        return new Promise((resolve, reject) => {
+          let status = 0; // 0 等待 1 完成 2 超时
+          let timer = setTimeout(() => {
+            if (status === 0) {
+              status = 2;
+              timer = null;
+              reject('请求超时');
+              if (retryTimes == 0) {
+                onFailure();
+              }
+            }
+          }, 5000);
+          fetch(url).then(function (response) {
+            if (status !== 2) {
+              clearTimeout(timer);
+              resolve(response);
+              timer = null;
+              status = 1;
+            }
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error('Network response was not ok.');
+          }).then(function (data) {
+            retryTimes = 0;
+            utils.onLoadSuccess(el);
+            callback(data);
+          }).catch(function (error) {
+            if (retryTimes > 0) {
+              retryTimes -= 1;
+              setTimeout(() => {
+                req();
+              }, 5000);
+            } else {
+              utils.onLoadFailure(el);
+              onFailure();
+            }
+          });
+        });
+      }
+      req();
+    },
+    /********************** requestAnimationFrame ********************************/
+    // 1、requestAnimationFrame 会把每一帧中的所有 DOM 操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。
+    // 2、在隐藏或不可见的元素中，requestAnimationFrame 将不会进行重绘或回流，这当然就意味着更少的的 cpu，gpu 和内存使用量。
+    requestAnimationFrame: (fn) => {
+      if (!window.requestAnimationFrame) {
+        window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame;
+      }
+      window.requestAnimationFrame(fn)
+    },
+    dark: {},
+  };
+
+  // utils.dark.mode 当前模式 dark or light
+  // utils.dark.toggle() 暗黑模式触发器
+  // utils.dark.push(callBack[,"callBackName"]) 传入触发器回调函数
+  utils.dark.method = {
+    toggle: new RunItem(),
+  };
+  utils.dark = Object.assign(utils.dark, {
+    push: utils.dark.method.toggle.push,
+  });
+</script>
+<script>
+  const sidebar = {
+    leftbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    rightbar: () => {
+      if (l_body) {
+        l_body.toggleAttribute('rightbar');
+        l_body.removeAttribute('leftbar');
+      }
+    },
+    dismiss: () => {
+      if (l_body) {
+        l_body.removeAttribute('leftbar');
+        l_body.removeAttribute('rightbar');
+      }
+    },
+    toggleTOC: () => {
+      document.querySelector('#data-toc').classList.toggle('collapse');
+    }
+  }
+</script>
+<script type="text/javascript">
+  (() => {
+    const tagSwitchers = document.querySelectorAll('.tag-subtree.parent-tag > a > .tag-switcher-wrapper')
+    for (const tagSwitcher of tagSwitchers) {
+      tagSwitcher.addEventListener('click', (e) => {
+        const parent = e.target.closest('.tag-subtree.parent-tag')
+        parent.classList.toggle('expanded')
+        e.preventDefault()
+      })
+    }
+
+    // Get active tag from query string, then activate it.
+    const urlParams = new URLSearchParams(window.location.search)
+    const activeTag = urlParams.get('tag')
+    if (activeTag) {
+      let tag = document.querySelector(`.tag-subtree[data-tag="${activeTag}"]`)
+      if (tag) {
+        tag.querySelector('a').classList.add('active')
+        
+        while (tag) {
+          tag.classList.add('expanded')
+          tag = tag.parentElement.closest('.tag-subtree.parent-tag')
+        }
+      }
+    }
+  })()
+</script>
+
+
+<!-- required -->
+<script src="/js/main.js?v=1.29.1" defer></script>
+
+<script type="text/javascript">
+  const applyTheme = (theme) => {
+    if (theme === 'auto') {
+      document.documentElement.removeAttribute('data-theme')
+    } else {
+      document.documentElement.setAttribute('data-theme', theme)
+    }
+
+    applyThemeToGiscus(theme)
+  }
+
+  const applyThemeToGiscus = (theme) => {
+    theme = theme === 'auto' ? 'preferred_color_scheme' : theme
+
+    const cmt = document.getElementById('giscus')
+    if (cmt) {
+      // This works before giscus load.
+      cmt.setAttribute('data-theme', theme)
+    }
+
+    const iframe = document.querySelector('#comments > section.giscus > iframe')
+    if (iframe) {
+      // This works after giscus loaded.
+      const src = iframe.src
+      const newSrc = src.replace(/theme=[\w]+/, `theme=${theme}`)
+      iframe.src = newSrc
+    }
+  }
+
+  const switchTheme = () => {
+    // light -> dark -> auto -> light -> ...
+    const currentTheme = document.documentElement.getAttribute('data-theme')
+    let newTheme;
+    switch (currentTheme) {
+      case 'light':
+        newTheme = 'dark'
+        break
+      case 'dark':
+        newTheme = 'auto'
+        break
+      default:
+        newTheme = 'light'
+    }
+    applyTheme(newTheme)
+    window.localStorage.setItem('Stellar.theme', newTheme)
+    utils.dark.mode = newTheme === 'auto' ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") : newTheme;
+    utils.dark.method.toggle.start();
+
+    const messages = {
+      light: `Switched to Light Mode`,
+      dark: `Switched to Dark Mode`,
+      auto: `Switched to Auto Mode`,
+    }
+    hud?.toast?.(messages[newTheme])
+  }
+
+  (() => {
+    // Apply user's preferred theme, if any.
+    const theme = window.localStorage.getItem('Stellar.theme')
+    if (theme !== null) {
+      applyTheme(theme)
+    } else {
+      utils.dark.mode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+    utils.dark.method.toggle.start();
+  })()
+</script>
+
+
+<!-- optional -->
+
+
+
+<script defer>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.services = Object.assign({}, JSON.parse(`{"mdrender":{"js":"/js/services/mdrender.js"},"siteinfo":{"js":"/js/services/siteinfo.js","api":null},"ghinfo":{"js":"/js/services/ghinfo.js"},"sites":{"js":"/js/services/sites.js"},"friends":{"js":"/js/services/friends.js"},"timeline":{"js":"/js/services/timeline.js"},"fcircle":{"js":"/js/services/fcircle.js"},"weibo":{"js":"/js/services/weibo.js"},"memos":{"js":"/js/services/memos.js"},"voice":{"js":"/js/plugins/voice.js"},"video":{"js":"/js/plugins/video.js"},"download-file":{"js":"/js/plugins/download-file.js"},"twikoo":{"js":"/js/services/twikoo_latest_comment.js"},"waline":{"js":"/js/services/waline_latest_comment.js"},"artalk":{"js":"/js/services/artalk_latest_comment.js"},"giscus":{"js":"/js/services/giscus_latest_comment.js"}}`));
+    for (let id of Object.keys(ctx.services)) {
+      const js = ctx.services[id].js;
+      if (id == 'siteinfo') {
+        ctx.cardlinks = document.querySelectorAll('a.link-card[cardlink]');
+        if (ctx.cardlinks?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            setCardLink(ctx.cardlinks);
+          });
+        }
+      } else if (id == 'voice') {
+        ctx.voiceAudios = document.querySelectorAll('.voice>audio');
+        if (ctx.voiceAudios?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            createVoiceDom(ctx.voiceAudios);
+          });
+        }
+      } else if (id == 'video') {
+        ctx.videos = document.querySelectorAll('.video>video');
+        if (ctx.videos?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            videoEvents(ctx.videos);
+          });
+        }
+      } else if (id == 'download-file') {
+        ctx.files = document.querySelectorAll('.file');
+        if (ctx.files?.length > 0) {
+          utils.js(js, { defer: true }).then(function () {
+            downloadFileEvent(ctx.files);
+          });
+        }
+      } else {
+        const els = document.getElementsByClassName(`ds-${id}`);
+        if (els?.length > 0) {
+          utils.jq(() => {
+            if (id == 'timeline' || 'memos' || 'marked') {
+              utils.js(deps.marked).then(function () {
+                utils.js(js, { defer: true });
+              });
+            } else {
+              utils.js(js, { defer: true });
+            }
+          });
+        }
+      }
+    }
+
+    // chat iphone time
+    let phoneTimes = document.querySelectorAll('.chat .status-bar .time');
+
+    if (phoneTimes.length > 0) {
+      NowTime();
+      var date = new Date();
+      var sec = date.getSeconds();
+      var firstAdjustInterval = setInterval(firstAdjustTime, 1000 * (60 - sec));
+    }
+
+    function firstAdjustTime() {
+      NowTime();
+      clearInterval(firstAdjustInterval);
+      setInterval(NowTime, 1000 * 60);
+    }
+
+    function NowTime() {
+      for (let i = 0; i < phoneTimes.length; ++i) {
+        var timeSpan = phoneTimes[i];
+        var date = new Date();
+        var hour = date.getHours();
+        var min = date.getMinutes();
+        timeSpan.innerHTML = check(hour) + ":" + check(min);
+      }
+    };
+
+    function check(val) {
+      if (val < 10) {
+        return ("0" + val);
+      }
+      return (val);
+    }
+
+    // chat quote
+    const chat_quote_obverser = new IntersectionObserver((entries, observer) => {
+      entries.filter((entry) => { return entry.isIntersecting }).sort((a, b) => a.intersectionRect.y !== b.intersectionRect.y ? a.intersectionRect.y - b.intersectionRect.y : a.intersectionRect.x - b.intersectionRect.x).forEach((entry, index) => {
+          observer.unobserve(entry.target);
+          setTimeout(() => {
+            entry.target.classList.add('quote-blink');
+            setTimeout(() => {
+              entry.target.classList.remove('quote-blink');
+            }, 1000);
+          }, Math.max(100, 16) * (index + 1));
+        });
+    });
+
+    var chatQuotes = document.querySelectorAll(".chat .talk .quote");
+    chatQuotes.forEach((quote) => {
+      quote.addEventListener('click', function () {
+        var chatCellDom = document.getElementById("quote-" + quote.getAttribute("quotedCellTag"));
+        if (chatCellDom) {
+          var chatDiv = chatCellDom.parentElement;
+          var mid = chatDiv.clientHeight / 2;
+          var offsetTop = chatCellDom.offsetTop;
+          if (offsetTop > mid - chatCellDom.clientHeight / 2) {
+            chatDiv.scrollTo({
+              top: chatCellDom.offsetTop - mid + chatCellDom.clientHeight / 2,
+              behavior: "smooth"
+            });
+          } else {
+            chatDiv.scrollTo({
+              top: 0,
+              behavior: "smooth"
+            });
+          }
+          chat_quote_obverser.observe(chatCellDom);
+        }
+      });
+    });
+  });
+</script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    ctx.search = {
+      path: `/search.json`,
+    }
+    utils.js('/js/search/local-search.js', { defer: true });
+  });
+</script><script>
+  window.FPConfig = {
+    delay: 0,
+    ignoreKeywords: [],
+    maxRPS: 5,
+    hoverDelay: 25
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/npm/flying-pages@2/flying-pages.min.js"></script><script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazy",
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    window.lazyLoadInstance?.update();
+  });
+</script><script>
+  ctx.fancybox = {
+    selector: `.timenode p>img`,
+    css: `https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css`,
+    js: `https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js`
+  };
+  var selector = '[data-fancybox]:not(.error)';
+  if (ctx.fancybox.selector) {
+    selector += `, ${ctx.fancybox.selector}`
+  }
+  var needFancybox = document.querySelectorAll(selector).length !== 0;
+  if (!needFancybox) {
+    const els = document.getElementsByClassName('ds-memos');
+    if (els != undefined && els.length > 0) {
+      needFancybox = true;
+    }
+  }
+  if (needFancybox) {
+    utils.css(ctx.fancybox.css);
+    utils.js(ctx.fancybox.js, { defer: true }).then(function () {
+      Fancybox.bind(selector, {
+        hideScrollbar: false,
+        Thumbs: {
+          autoStart: false,
+        },
+        caption: (fancybox, slide) => {
+          return slide.triggerEl.alt || slide.triggerEl.dataset.caption || null
+        }
+      });
+    })
+  }
+</script>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const swiper_api = document.getElementById('swiper-api');
+    if (swiper_api != undefined) {
+      utils.css(`https://unpkg.com/swiper@10.3.1/swiper-bundle.min.css`);
+      utils.js(`https://unpkg.com/swiper@10.3.1/swiper-bundle.min.js`, { defer: true }).then(function () {
+        const effect = swiper_api.getAttribute('effect') || '';
+        var swiper = new Swiper('.swiper#swiper-api', {
+          slidesPerView: 'auto',
+          spaceBetween: 8,
+          centeredSlides: true,
+          effect: effect,
+          rewind: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      })
+    }
+  });
+</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    processEscapes: true
+  }
+});
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script>
+<script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/mermaid@v9/dist/mermaid.min.js"></script>
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    var mermaid_config = {
+      startOnLoad: true,
+      theme:
+        "" == "auto" &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "neutral",
+      logLevel: 3,
+      themeVariables: {
+        darkMode: true
+      },
+      flowchart: {
+        useMaxWidth: false,
+        htmlLabels: true,
+        curve: "linear"
+      },
+      gantt: {
+        axisFormat: "%Y/%m/%d"
+      },
+      sequence: {
+        actorMargin: 50
+      }
+    }
+    mermaid.initialize(mermaid_config);
+  });
+</script><script>
+  document.addEventListener('DOMContentLoaded', function () {
+    window.codeElements = document.querySelectorAll('.code');
+    if (window.codeElements.length > 0) {
+      ctx.copycode = {
+        default_text: `Copy`,
+        success_text: `Copied`,
+        toast: `复制成功`,
+      };
+      utils.js('/js/plugins/copycode.js');
+    }
+  });
+</script>
+
+
+<!-- inject -->
+
+</div></body></html>

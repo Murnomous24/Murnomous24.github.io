@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="hexo-theme" content="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.29.1" theme-name="Stellar" theme-version="1.29.1">
-  <meta name="robots" content="noindex,follow">
+  
   <meta name="generator" content="Hexo 7.3.0">
   <meta http-equiv='x-dns-prefetch-control' content='on' />
   
@@ -17,16 +17,23 @@
   <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000">
   <meta name="theme-color" content="#f9fafb">
   
-  <title>Archives - Murnomous24</title>
+  <title>All-to-key Attention for Arbitrary Style Transfer - Murnomous24</title>
 
   
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Archives">
-<meta property="og:url" content="http://murnomous24.github.io/archives/">
+    <meta name="description" content="0. TLDR该工作将注意力机制应用到2D风格迁移，并通过观察前述方法中不稳定的风格迁移缺陷，提出了”点-块”和”块-块”的两种注意力机制，用于在粗&#x2F;细粒度下实现了可接受复杂度下优秀的风格迁移结果效果对比 1. overall architecture作者在这里的总体结构仍然是  使用 VGG19 作为特征提取网络 将原图和风格图输入，并得到不同层级的特征（作者此处选取了 $l\in RELU{3">
+<meta property="og:type" content="article">
+<meta property="og:title" content="All-to-key Attention for Arbitrary Style Transfer">
+<meta property="og:url" content="http://murnomous24.github.io/All-to-key%20Attention%20for%20Arbitrary%20Style%20Transfer">
 <meta property="og:site_name" content="Murnomous24">
+<meta property="og:description" content="0. TLDR该工作将注意力机制应用到2D风格迁移，并通过观察前述方法中不稳定的风格迁移缺陷，提出了”点-块”和”块-块”的两种注意力机制，用于在粗&#x2F;细粒度下实现了可接受复杂度下优秀的风格迁移结果效果对比 1. overall architecture作者在这里的总体结构仍然是  使用 VGG19 作为特征提取网络 将原图和风格图输入，并得到不同层级的特征（作者此处选取了 $l\in RELU{3">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://murnomous24.github.io/images/All-to-key_Attention_for_Arbitrary_Style_Transfer/comparisons.png">
+<meta property="og:image" content="http://murnomous24.github.io/images/All-to-key_Attention_for_Arbitrary_Style_Transfer/pipeline.jpeg">
+<meta property="article:published_time" content="2025-04-26T12:16:53.000Z">
+<meta property="article:modified_time" content="2025-05-21T12:57:01.756Z">
 <meta property="article:author" content="Murnomous24">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://murnomous24.github.io/images/All-to-key_Attention_for_Arbitrary_Style_Transfer/comparisons.png">
   
   
   
@@ -48,7 +55,7 @@
 </head>
 <body>
 
-<div class="l_body s:aa index tech" id="start" layout="undefined" ><aside class="l_left"><div class="leftbar-container">
+<div class="l_body s:aa content tech" id="start" layout="post" ><aside class="l_left"><div class="leftbar-container">
 
 
 <header class="header"><div class="logo-wrap"><a class="avatar" href="/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="/images/config/avatar.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">Murnomous24</div><div class="sub cap">Murph</div></a></div></header>
@@ -60,21 +67,148 @@
 <nav class="menu dis-select"></nav>
 </div>
 <div class="widgets">
+
+
 <widget class="widget-wrapper post-list"><div class="widget-header dis-select"><span class="name">Recent Update</span></div><div class="widget-body fs14"><a class="item title" href="/All-to-key%20Attention%20for%20Arbitrary%20Style%20Transfer"><span class="title">All-to-key Attention for Arbitrary Style Transfer</span></a><a class="item title" href="/Quadratic-Gaussian-Splatting"><span class="title">Quadratic Gaussian Splatting</span></a><a class="item title" href="/test1"><span class="title">样式测试</span></a><a class="item title" href="/hello-world"><span class="title">Hello World</span></a></div></widget>
 </div>
 
 </div></aside><div class="l_main" id="main">
 
-<header class="header mobile-only"><div class="logo-wrap"><a class="avatar" href="/"><div class="bg" style="opacity:0;background-image:url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="/images/config/avatar.jpg" onerror="javascript:this.classList.add('error');this.src='https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/image/2659360.svg';"></a><a class="title" href="/"><div class="main" ff="title">Murnomous24</div><div class="sub cap">Murph</div></a></div></header>
-
- 
 
 
-<div class="navbar top"><nav class="post"><a href="/">Recent</a><a class="active" href="/archives/">Archives</a></nav></div><div class="post-list archives"><article class="" id="archive"><div class='archive-header h4'>2025</div><div class="archive-list"><a class='post fs14' href="/Quadratic-Gaussian-Splatting"><time>04-26</time><span>Quadratic Gaussian Splatting</span></a></div><div class="archive-list"><a class='post fs14' href="/All-to-key%20Attention%20for%20Arbitrary%20Style%20Transfer"><time>04-26</time><span>All-to-key Attention for Arbitrary Style Transfer</span></a></div><div class="archive-list"><a class='post fs14' href="/test1"><time>04-25</time><span>样式测试</span></a></div><div class="archive-list"><a class='post fs14' href="/hello-world"><time>04-24</time><span>Hello World</span></a></div></article></div>
+
+
+<div class="article banner top"><img class="bg lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="/images/All-to-key_Attention_for_Arbitrary_Style_Transfer/cover.png">
+  <div class="content">
+    <div class="top bread-nav footnote"><div class="left"><div class="flex-row" id="breadcrumb"><a class="cap breadcrumb" href="/">Home</a>
+<span class="sep"></span><a class="cap breadcrumb" href="/">Blog</a></div>
+<div class="flex-row" id="post-meta"><span class="text created">Posted on: <time datetime="2025-04-26T12:16:53.000Z">2025-04-26</time></span><span class="sep updated"></span><span class="text updated">Updated on: <time datetime="2025-05-21T12:57:01.756Z">2025-05-21</time></span></div></div></div>
+    
+    <div class="bottom only-title">
+      
+      <div class="text-area">
+        <h1 class="text title"><span>All-to-key Attention for Arbitrary Style Transfer</span></h1>
+        
+      </div>
+    </div>
+    
+  </div>
+  </div><article class="md-text content"><h3 id="0-TLDR"><a href="#0-TLDR" class="headerlink" title="0. TLDR"></a>0. TLDR</h3><p>该工作将注意力机制应用到2D风格迁移，并通过观察前述方法中不稳定的风格迁移缺陷，提出了”点-块”和”块-块”的两种注意力机制，用于在粗/细粒度下实现了可接受复杂度下优秀的风格迁移结果<br><div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="images/All-to-key_Attention_for_Arbitrary_Style_Transfer/comparisons.png" alt="效果对比" data-fancybox="true"/></div><div class="image-meta"><span class="image-caption center">效果对比</span></div></div></p>
+<h3 id="1-overall-architecture"><a href="#1-overall-architecture" class="headerlink" title="1. overall architecture"></a>1. overall architecture</h3><p>作者在这里的总体结构仍然是</p>
+<ul>
+<li>使用 VGG19 作为特征提取网络</li>
+<li>将原图和风格图输入，并得到不同层级的特征（作者此处选取了 $l\in RELU{3_{1},4_{1},5_{1}}$）</li>
+<li>对比两者</li>
+<li>返回修改原图像的特征</li>
+</ul>
+<p>这里的对比两者，作者使用了 A2K 模块，输入原图和风格图的特征，得到转换后的特征</p>
+<script type="math/tex; mode=display">
+F_{cs}^{l}=M_{A2K}^{l}(F_{c}^{l}, F_{s}^{l})</script><p>然后使用了 <code>Adaattn</code> 中的思想，将 encoder 进行 mirror（❓），进而将特征改变为颜色，然后输出风格迁移之后的 RGB 图</p>
+<h3 id="2-what-is-all-to-all"><a href="#2-what-is-all-to-all" class="headerlink" title="2. what is all-to-all?"></a>2. what is all-to-all?</h3><p>作者介绍了以前关于 AST（风格迁移）中注意力机制的使用，其形式如下：</p>
+<ul>
+<li>输入形如 $(H, W, C)$ 的内容特征图 $F<em>{c}$ 和风格特征图 $F</em>{s}$</li>
+<li>通过 normalization 操作和可学习的 conv layer，得到注意力机制中的 $Q,K,V$，即<script type="math/tex; mode=display">
+Q=f(N(F_{c})), K=g(N(F_{s})), V=h(F_{c})</script></li>
+<li>通过注意力机制得到 attention score，形状为 $(H\times W, H\times W)$，代表了内容特征图中每一个特征向量对于风格特征图中每一个特征向量的 <strong>相似分数</strong>。<script type="math/tex; mode=display">
+AttN=softmax(Q\cdot K^{T})</script></li>
+<li>通过这个相似分数作为权重，将风格特征图中所有特征向量进行权重求和，得到 <strong>风格迁移特征图</strong>。</li>
+</ul>
+<p>该方法简单直接，但有两个问题</p>
+<ul>
+<li>扭曲的风格结果和不稳定的结果</li>
+<li>图像尺寸较大时，时间复杂度极高</li>
+</ul>
+<h3 id="3-distributed-attention"><a href="#3-distributed-attention" class="headerlink" title="3. distributed attention"></a>3. distributed attention</h3><p>作者为了缓解以上问题，设计了新的注意力机制模块，被称为 A2K (all-to-key)，简要概括来说，将内容特征图中某位置一个特征向量与风格特征图中 <strong>某块</strong> 的总体特征向量进行注意力查询，这种方式既降低了复杂度，又通过风格特征图设置块的模式，扩大了区域，提高了迁移的稳定性。</p>
+<div class="tag-plugin image"><div class="image-bg"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="images/All-to-key_Attention_for_Arbitrary_Style_Transfer/pipeline.jpeg" alt="Pipeline" data-fancybox="true"/></div><div class="image-meta"><span class="image-caption center">Pipeline</span></div></div>
+<!-- ![[Pic/e29fd697144e28600c872ad13d456fd6_MD5.jpeg]] -->
+<p>作者首先在可学习的 conv layer 后加入了一个类似 reshape 的操作：</p>
+<script type="math/tex; mode=display">
+\begin{align}
+&F_{c}^{l}\in (H^{l}, W^{l}, C^{l})\\
+&Q^{l}=B^{l}(N^{l}(F_{c}^{l}))\in (b^{l}\times b^{l}, \frac{H^{l}}{b^{l}}\times \frac{H^{l}}{b^{l}}, C^{l})
+\end{align}</script><p>reshape 过程中，我的理解如下：</p>
+<ul>
+<li>将特征图分成块，其中包含 $\frac{H^{l}}{b^{l}}*\frac{H^{l}}{b^{l}}$ 个点。</li>
+<li>将点按顺序排列好，作为 $Q^{l}$ 的第 2 维</li>
+<li>分块按顺序排列好，作为 $Q^{l}$ 的第 1 维</li>
+<li>每个点的特征都是 $C^{l}$ 维</li>
+</ul>
+<p>内容特征图和风格特征图都完成以上的操作。</p>
+<p>作者对风格特征图进行了 aggregation 的操作，概要来说就是将同一块内点的特征进行聚合，“合成为” 一个点，即：</p>
+<script type="math/tex; mode=display">
+k_{m}=\frac{1}{n}\sum_{i=1}^{n}k_{i}</script><p>其中 $k_i$ 为同一块内点的特征向量，该公式计算了该块内点的平均特征向量。</p>
+<script type="math/tex; mode=display">
+k=\frac{1}{n}\left( k_{m}+\sum_{i=1}^{n} sig(\alpha s_{i}+\beta)k_{i}\right)</script><p>该公式则设置了一个可学习的线性变换 $\alpha, \beta$ ，并通过 sigmoid 将结果映射到 $[0,1]$ 内，最终计算出该块的 aggregation 的特征向量，由于共有 $b^{l}\times b^{l}$ 个块，aggregation 后得到的就是 $b^{l}\times b^{l}$ 形状的聚合特征矩阵 $\hat{K}^{l}$ </p>
+<p>此处之后，$Q^{l}$ 对应的就是内容特征图内单点的特征向量，而 $\hat{K}^{l}$ 对应的 aggregation 后以块为单位的特征向量，运用 all-to-all 的注意力机制，对第一维使用注意力（即原图的每个点和风格图的每块），就能得到新的 attention score 矩阵</p>
+<script type="math/tex; mode=display">
+D^{l}_{attn}=D^{l}(Q^{l}, \hat{K}^{l}) \in (\frac{H^{l}}{b^{l}}\times \frac{H^{l}}{b^{l}}, b^{l}\times b^{l}, b^{l}\times b^{l})</script><ul>
+<li>第一维对应内容特征块中某一个点</li>
+<li>第二维对应内容特征图中某一个特征块</li>
+<li>第三维对应风格特征图中某一个特征块</li>
+</ul>
+<h3 id="4-Progressive-Attention"><a href="#4-Progressive-Attention" class="headerlink" title="4. Progressive Attention"></a>4. Progressive Attention</h3><p>对应上一节中 <strong>点对块</strong> 的注意力机制，这一节中使用了 <strong>块对块</strong> 的注意力机制获取索引，再使用 <strong>点对点</strong> 的注意力机制得到结果。</p>
+<p><em>coarse</em><br>其中首先也使用了相同结构（但不是同一个）的 conv 和分块手法获取 $Q^{l}$ 和 $K^{l}$，为了获取内容特征图中某一块与风格特征图中哪一块最相近，作者使用了 argmax 的方法</p>
+<script type="math/tex; mode=display">
+P_{idx}^{l}=argmax(P^{l}_1(Q^{l}, K^{l}))</script><p>$P^{l}_{1}$ 没有具体说明，我认为是 softmax 类似的操作，获取内容特征图中某一块与风格特征图中所有块的相似度，而 argmax 则是选取其中的最大值，并获取其序号，相等于获得了该块在风格特征图中相似度最大块的 <strong>序号</strong>。</p>
+<script type="math/tex; mode=display">
+\begin{align}
+&\tilde{K}^{l}=reshuffle(K^{l},P^{l}_{idx}) \\
+&\tilde{B}(F^{l}_)=reshuffle(B(F^{l}_),P^{l}_{idx})
+\end{align}</script><p><em>fine</em><br>通过该方法重排风格特征图中每块的顺序，形成了相似度最高的一对一组合（块对块），并根据重排后的结果进行注意力机制的输出，对第二维使用注意力机制（即原图和风格图中特定块）</p>
+<script type="math/tex; mode=display">
+P_{attn}^{l}=P_{2}^{l}(Q^{l},\tilde{K}^{l})\in (b^{l}\times b^{l}, \frac{H^{l}}{b^{l}}\times \frac{H^{l}}{b^{l}}, \frac{H^{l}}{b^{l}}\times \frac{H^{l}}{b^{l}})</script><ul>
+<li>第一维：对应每一块</li>
+<li>第二维：对应内容特征图中该块内的某一点</li>
+<li>第三维：对应风格特征图中该块内的某一点</li>
+<li>由于使用了 coarse 阶段的重排信息，fine 阶段的注意力机制只需要在很小一个区域（单个块）内进行，降低了时间复杂度并在近似度最高的块中进行风格迁移，提升了稳定度。</li>
+</ul>
+<h3 id="5-feature-transformation"><a href="#5-feature-transformation" class="headerlink" title="5. feature transformation"></a>5. feature transformation</h3><p>通过 distributed attention 和 progressive attention，能够对得到两种风格迁移项，与原特征累加，就能得到风格迁移后的结果</p>
+<script type="math/tex; mode=display">
+\begin{align}
+&F_{cs\_{D}}^{l}=U(D_{attn}^{l}\cdot \hat{B}(F_{s}^{l})) \\
+&F_{cs\_{P}}^{l}=U(P_{attn}^{l}\cdot \tilde{B}(F_{s}^{l})) \\
+&F_{cs}^{l}=F_{cs\_{D}}+F_{cs\_{P}}+F_{c}^{l}
+\end{align}</script><h3 id="6-Complexity"><a href="#6-Complexity" class="headerlink" title="6. Complexity"></a>6. Complexity</h3><p>通过分块能极大的降低 attention 环节的计算量，具体复杂度不写了（</p>
+<h3 id="7-Loss"><a href="#7-Loss" class="headerlink" title="7. Loss"></a>7. Loss</h3><p>首先是将风格迁移图输入 VGG 得到不同层的特征图，并计算每张特征图的 $\mu, \sigma$ ，并与风格图的特征图进行对比，这个类似于 AdaIN 吧</p>
+<script type="math/tex; mode=display">
+L_{gs}=\sum_{l=1}^{4}||\mu(E_{nc}^{l}(I_{cs}))-\mu(F_{s}^{l})||_{2}+\sum_{l=1}^{4}||\sigma(E_{nc}^{l}(I_{cs}))-\sigma(F_{s}^{l})||_{2}</script><p>其次是使用 A2K 得到的迁移特征图作为 GT 进行对比</p>
+<script type="math/tex; mode=display">
+L_{A2K}=\sum_{l=2}^{5}||E_{nc}^{l}(I_{cs})-M_{A2K}^{L}(F_{c}^{l},F_{s}^{l})||_{2}</script>
+<div class="article-footer fs14">
+    <section id="license">
+      <div class="header"><span>License</span></div>
+      <div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div>
+    </section>
+    
+    <section id="share">
+      <div class="header"><span>Share</span></div>
+      <div class="body">
+        <div class="link"><input class="copy-area" readonly="true" id="copy-link" value="http://murnomous24.github.io/All-to-key%20Attention%20for%20Arbitrary%20Style%20Transfer" /></div>
+        <div class="social-wrap dis-select"></div>
+        
+      </div>
+    </section>
+    </div>
+</article>
+<div class="related-wrap" id="read-next"><section class="body"><div class="item" id="prev"><div class="note">Newer</div><a href="/Quadratic-Gaussian-Splatting">Quadratic Gaussian Splatting</a></div><div class="item" id="next"><div class="note">Older</div><a href="/test1">样式测试</a></div></section></div>
+
+
+
+
+
+
 <footer class="page-footer footnote"><hr><div class="text"><p>本站由 <a href="/">Murnomous24</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.29.1">Stellar 1.29.1</a> 主题创建。<br>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
 </div></footer>
 <div class="main-mask" onclick="sidebar.dismiss()"></div></div><aside class="l_right">
-</aside><div class='float-panel blur'>
+<div class="widgets">
+
+
+
+<widget class="widget-wrapper toc" id="data-toc" collapse="false"><div class="widget-header dis-select"><span class="name">On This Page</span><a class="cap-action" onclick="sidebar.toggleTOC()" ><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg></a></div><div class="widget-body"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#0-TLDR"><span class="toc-text">0. TLDR</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-overall-architecture"><span class="toc-text">1. overall architecture</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-what-is-all-to-all"><span class="toc-text">2. what is all-to-all?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-distributed-attention"><span class="toc-text">3. distributed attention</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-Progressive-Attention"><span class="toc-text">4. Progressive Attention</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-feature-transformation"><span class="toc-text">5. feature transformation</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-Complexity"><span class="toc-text">6. Complexity</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-Loss"><span class="toc-text">7. Loss</span></a></li></ol></div><div class="widget-footer">
+
+<a class="top" onclick="util.scrollTop()"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 12c0-4.714 0-7.071 1.464-8.536C4.93 2 7.286 2 12 2c4.714 0 7.071 0 8.535 1.464C22 4.93 22 7.286 22 12c0 4.714 0 7.071-1.465 8.535C19.072 22 16.714 22 12 22s-7.071 0-8.536-1.465C2 19.072 2 16.714 2 12Z"/><path stroke-linecap="round" stroke-linejoin="round" d="m9 15.5l3-3l3 3m-6-4l3-3l3 3"/></g></svg><span>Scroll to Top</span></a></div></widget>
+</div></aside><div class='float-panel blur'>
   <button type='button' style='display:none' class='laptop-only rightbar-toggle mobile' onclick='sidebar.rightbar()'>
     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h11m-11 6h11m-11 6h11M4 6h1v4m-1 0h2m0 8H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>
   </button>
@@ -680,7 +814,55 @@
     }
   });
 </script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    processEscapes: true
+  }
+});
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+  }
+});
+MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i=0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+  }
+});
+</script>
+<script defer type="text/javascript" src="https://cdn.jsdelivr.net/npm/mermaid@v9/dist/mermaid.min.js"></script>
 <script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    var mermaid_config = {
+      startOnLoad: true,
+      theme:
+        "" == "auto" &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "neutral",
+      logLevel: 3,
+      themeVariables: {
+        darkMode: true
+      },
+      flowchart: {
+        useMaxWidth: false,
+        htmlLabels: true,
+        curve: "linear"
+      },
+      gantt: {
+        axisFormat: "%Y/%m/%d"
+      },
+      sequence: {
+        actorMargin: 50
+      }
+    }
+    mermaid.initialize(mermaid_config);
+  });
+</script><script>
   document.addEventListener('DOMContentLoaded', function () {
     window.codeElements = document.querySelectorAll('.code');
     if (window.codeElements.length > 0) {

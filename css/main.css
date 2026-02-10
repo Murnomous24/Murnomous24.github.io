@@ -42,7 +42,7 @@
   margin-bottom: 2.4rem;
 }
 table:not([class]) img {
-  width: 160px;
+  width: 250px;
   max-width: none;
 }
 :root {

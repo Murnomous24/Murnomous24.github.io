@@ -41,6 +41,10 @@
   margin-top: 2.4rem;
   margin-bottom: 2.4rem;
 }
+table:not([class]) img {
+  width: 160px;
+  max-width: none;
+}
 :root {
   --theme-link: #2094f3;
   --theme-color: #1cd0fd;
